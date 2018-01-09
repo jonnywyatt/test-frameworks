@@ -13,7 +13,7 @@ module.exports = {
 		browser = await puppeteer.launch({ headless: false });
 		page = await browser.newPage();
 		await page.goto('https://www.ft.com');
-		await page.setCookie({
+		return page.setCookie({
 			name: "FTSession",
 			value: process.env.FTSESSION,
 			domain: ".ft.com",
@@ -22,7 +22,7 @@ module.exports = {
 	},
 
 	teardown: async () => {
-		await browser.close();
+		return browser.close();
 	},
 
 	myAccount: async (url='https://myaccount.ft.com') => {
@@ -30,7 +30,7 @@ module.exports = {
 		const passwordSelector = '#password';
 		await page.waitForSelector(passwordSelector, {visible: true});
 		await page.type(passwordSelector, 'password');
-		await page.click('#authentication-submit');
+		return page.click('#authentication-submit');
 	},
 
 	editPosition: async () => {
